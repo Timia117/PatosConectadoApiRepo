@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Componente de navegación principal.
+ * @returns Devuelve el elemento <nav> con el menú de navegación responsivo:
+ */
 function Nav() {
+  {/* Estado para controlar si el menú móvil está abierto o cerrado */}
   const [isOpen, setIsOpen] = useState(false);
 
   return (

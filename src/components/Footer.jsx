@@ -1,5 +1,8 @@
 import logo from "../assets/images/Pato.png";
-
+/**
+ * El footer de la página
+ * @returns Devuelve el componente <footer>
+ */
 function Footer() {
   return (
     <footer className="contenedor__barra-principal">

@@ -4,9 +4,13 @@ import TarjetaPato from "../components/TarjetaPato";
 import ducklyn from "../data/ducklyn";
 import Slogan from "../assets/images/Slogan.png";
 
+/**
+* Página principal de la aplicación.
+ * @returns Devuelve el componente <ContenedorGlobal> con el título "Nuestros Patos"
+ */
 function Home() {
   return (
-    <ContenedorGlobal titulo="Nuestros Patos">
+    <ContenedorGlobal titulo="Nuestros Patos">   {/* Componente contenedor global con el título "Nuestros Patos" */ }
       <article>
         {/* He puesto para q en el móvil no tenga eese "carusel" */}
         <section className="hidden sm:relative sm:flex sm:justify-center sm:mb-8">
@@ -29,7 +33,7 @@ function Home() {
               <br />
               porque creemos que la calidad también puede ser sostenible.
             </p>
-
+            {/*Boton de conócenos que lleva a /patos (Se podría crear un "Sobre Nosotros" en un futuro*/}
             <section>
               <Link
                 to="/patos"
@@ -44,7 +48,6 @@ function Home() {
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
           {ducklyn.slice(0, 8).map((pato) => (
             <Link key={pato.id} to={`/patos/${pato.id}`}>
-              {" "}
               {/* Mostrar solo los primeros 8 patos gracias a slice*/}
               <TarjetaPato
                 key={pato.id}

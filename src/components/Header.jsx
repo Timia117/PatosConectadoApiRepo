@@ -1,6 +1,9 @@
 import Nav from "./Nav.jsx";
 import logo from "../assets/images/Pato.png";
-
+/**
+ * El header de la página, que incluye el logo y la barra de navegación
+ * @returns Devuelve el componente <header>
+ */
 function Header() {
   return (
     <header className="contenedor__barra-principal py-6 ">
@@ -22,6 +25,7 @@ function Header() {
             </p>
           </section>
         </section>
+        {/* Barra de navegación */}
         <Nav />
       </article>
     </header>

@@ -2,9 +2,14 @@ import ContenedorGlobal from "../components/ContenedorGlobal";
 import TarjetaPato from "../components/TarjetaPato";
 import ducklyn from "../data/ducklyn";
 import { Link } from "react-router-dom";
+/**
+ * Página de catálogo de patos.
+ * @returns Devuelve el componente <ContenedorGlobal> con el título "Nuestros Patos"
+ * 
+ */
 function Patos() {
   return (
-    <ContenedorGlobal titulo="Nuestros Patos">
+    <ContenedorGlobal titulo="Nuestros Patos"> {/*Le paso este título y sus hijos al contenedor global */}
       <p className="contenedor__texto-largo  mb-6">
         Coloridos, divertidos y coleccionables
       </p>

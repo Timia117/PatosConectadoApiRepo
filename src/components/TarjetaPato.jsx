@@ -1,6 +1,7 @@
 /**
  * TarjetaPato: Componente que representa una tarjeta individual de pato
- *
+ * @param {*} param0 Le paso el nombre, foto, descripcion, precio y children (Está en patos.jsx)
+ * @returns Devuelve la estructura de la tarjeta del pato
  */
 function TarjetaPato({
   nombre,
@@ -16,7 +17,8 @@ function TarjetaPato({
       <article
         tabIndex="0"
         aria-label={`${nombre}`}
-        className="flex flex-col justify-between w-full max-w-xs sm:max-w-sm md:max-w-md p-8 sm:p-3 rounded-md bg-white shadow-xl mx-auto"
+className="flex flex-col justify-between w-full h-full p-10 sm:p-3 rounded-md bg-white shadow-sm sm:shadow-md"
+      
       >
         <figure className="w-full aspect-square rounded-lg bg-gray-100 overflow-hidden">
           <img
@@ -31,10 +33,10 @@ function TarjetaPato({
 
         <section>
           {/* Bloque informativo del pato */}
-          <h3 className="text-black text-lg font-bold baloo tracking-wide leading-tight whitespace-nowrap">
+          <h3 className="text-black text-lg font-bold baloo tracking-wide leading-tight">
             <strong>{nombre}</strong>
           </h3>
-          <p className="contenedor__texto-normal">{descripcion}</p>
+          <p className="contenedor__texto-normal font-bold">{descripcion}</p>
           {/*<p className="contenedor__texto-normal">{categoria}</p>*/}
           <p className="contenedor__precio">{precio}</p>
         </section>

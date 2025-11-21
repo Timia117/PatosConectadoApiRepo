@@ -18,9 +18,9 @@
 
 ## Vista en diferentes pantallas
 
-![Vista en móvil](image-4.png) (CAMBIAR)
+![Vista en móvil](image-14.png)
 
-![Vista en otro dispositivo](image-5.png)
+![Vista en otro dispositivo](image-13.png)
 
 ## Lector de pantalla
 
@@ -31,6 +31,15 @@
 
 ![foto donde se usó Anima](image-7.png)
 
+## "Carrusel" solo en pantallas grandes
+
+![Pantalla grande](image-9.png)
+
+![Pantalla Móvil](image-10.png)
+
+## Menú hamburguesa solo en móvil
+
+![Menú hamburguesa móvil](image-11.png)
 
 ---
 ## Debe aparecer en la consola del navegador console.log(información)
