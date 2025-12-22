@@ -8,7 +8,7 @@ import Slogan from "../assets/images/Slogan.png";
 function Home() {
   return (
     <>
-      {/* Solo visible en pantallas >= sm */}
+      {/* Solo visible en pantallas grandes */}
       <section className="hidden sm:relative sm:flex sm:justify-center sm:mb-8">
         <img
           src={Slogan}

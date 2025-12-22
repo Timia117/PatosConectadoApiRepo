@@ -1,4 +1,4 @@
-import DuckDetailsStoryBook from "../components/DuckDetailsStoryBook"; // Se crea este porque DuckDetails.jsx usa useParams y en Storybook no funciona
+import DuckDetailsStoryBook from "./DuckDetailsStoryBook"; // Se crea este porque DuckDetails.jsx usa useParams y en Storybook no funciona
 import ducklyns from "../data/ducklyn";
 import "../assets/styles/index.css";
 
