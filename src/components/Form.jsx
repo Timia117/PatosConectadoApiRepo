@@ -114,7 +114,7 @@ function Form() {
 
   //Paso 1 del formulario móvil
   const handlePaso1 = () => {
-    //^Pilla los errores
+    //Pilla los errores
     const errores = validarPaso1(duckData);
     setDuckErrors(errores);
     //Se activa para que el useEffect enfoque el error
