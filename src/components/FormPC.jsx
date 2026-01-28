@@ -27,9 +27,18 @@ import FormInput from "./FormInput";
  *
  * @returns {JSX.Element} Form section with input fields, select dropdown, textarea, and submit button
  */
-function FormPC({ duckData, duckErrors, categorias, handleDuckChange }) {
+function FormPC({
+  duckData,
+  duckErrors,
+  categorias,
+  handleDuckChange,
+  handleFileChange,
+  fileInputRef,
+  loading,
+  error
+}) {
   return (
-    <section className="space-y-4">
+    <fieldset className="space-y-4">
       <FormInput
         nombre="Pato nombre *"
         id="nombre"
@@ -54,7 +63,7 @@ function FormPC({ duckData, duckErrors, categorias, handleDuckChange }) {
         errorId="error-precio"
       />
 
-      <section>
+      <fieldset>
         <label htmlFor="categoria" className="contenedor__texto-largo">
           Categoría *
         </label>
@@ -85,19 +94,27 @@ function FormPC({ duckData, duckErrors, categorias, handleDuckChange }) {
             {duckErrors.categoria}
           </p>
         )}
-      </section>
+      </fieldset>
 
-      <FormInput
-        nombre="Imagen *"
-        id="imagen"
-        type="url"
-        placeholder="URL de la imagen (http...)"
-        value={duckData.imagen}
-        onChange={handleDuckChange}
-        autoComplete="url"
-        error={duckErrors.imagen}
-        errorId="error-imagen"
-      />
+      {/* Poner la imagen*/}
+      <fieldset className="flex flex-col gap-2">
+        <label htmlFor="imagen" className="contenedor__texto-largo">
+          Imagen
+        </label>
+        <input
+          ref={fileInputRef}
+          id="imagen"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="mt-1 block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 rounded-md" // ← sin border
+        />
+        {duckErrors.imagen && (
+          <p id="error-imagen" className="mt-1 text-sm text-red-600">
+            {duckErrors.imagen}
+          </p>
+        )}
+      </fieldset>
 
       <FormInput
         nombre="Detalles *"
@@ -111,7 +128,7 @@ function FormPC({ duckData, duckErrors, categorias, handleDuckChange }) {
         errorId="error-detalles"
       />
 
-      <section>
+      <fieldset>
         <label htmlFor="descripcion" className="contenedor__texto-largo">
           Descripción *
         </label>
@@ -137,15 +154,17 @@ function FormPC({ duckData, duckErrors, categorias, handleDuckChange }) {
             {duckErrors.descripcion}
           </p>
         )}
-      </section>
+      </fieldset>
 
-      <button
-        type="submit"
-        className="btn"
-      >
-        Añadir pato
+      <button type="submit" className="btn" disabled={loading}>
+        {loading ? "Añadiendo..." : "Añadir pato"}
       </button>
-    </section>
+      {error && (
+        <p role="alert" className="text-red-600 text-sm">
+          {error}
+        </p>
+      )}
+    </fieldset>
   );
 }
 

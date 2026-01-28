@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FormPC from "./FormPC";
 import ducklyn from "../data/ducklyn";
 import FormPhone from "./FormPhone";
-
+import { useCreatePato } from "../hooks/useCreatePato";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Form Component
- * 
+ *
  * A responsive form component for adding duck products with validation.
  * Adapts between desktop (single-step) and mobile (two-step) layouts based on window width.
- * 
+ *
  * @component
  * @returns {JSX.Element} A section containing a responsive form for duck data entry
- * 
+ *
  * @example
  * return <Form />
- * 
+ *
  * Features:
  * - Responsive design using custom useWindowWidth hook
  * - Real-time form validation with error clearing on field changes
@@ -23,13 +24,13 @@ import FormPhone from "./FormPhone";
  * - Single-step form process for desktop devices
  * - Automatic focus management for first validation error
  * - Prevents duplicate categories in select dropdown
- * 
+ *
  * State Management:
  * - duckData: Object containing form field values (nombre, precio, categoria, imagen, detalles, descripcion)
  * - duckErrors: Object containing validation error messages for each field
  * - siguiente: Current step in mobile form (1 or 2)
  * - submitted: Boolean flag to trigger focus management on validation errors
- * 
+ *
  * Helper Functions:
  * - useWindowWidth(): Custom hook that returns current window width and updates on resize
  * - validateDuck(data): Validates complete form data and returns error object
@@ -37,13 +38,12 @@ import FormPhone from "./FormPhone";
  * - handleDuckChange(e): Updates form data and clears field-specific errors
  * - handleDuckSubmit(e): Handles form submission with full validation
  * - handlePaso1(): Handles mobile form first step validation and progression
- * 
+ *
  * Validation Rules:
  * - nombre: Required and must not be empty
  * - descripcion: Required, minimum 20 characters
  * - precio: Required, must be a valid number
  * - categoria: Required and must not be empty
- * - imagen: Required, must start with "http"
  * - detalles: Required, minimum 5 characters
  */
 
@@ -58,6 +58,7 @@ const ducksObj = {
 
 //Para saber el ancho de la pantalla
 function useWindowWidth() {
+
   //Ancho actual de la pantalla
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -93,9 +94,7 @@ const validateDuck = (data) => {
   if (!data.categoria.trim()) {
     errors.categoria = "La categoría es obligatoria.";
   }
-  if (!data.imagen.startsWith("http")) {
-    errors.imagen = "La URL de la imagen es obligatoria y debe ser válida.";
-  }
+
   if (!data.detalles.trim() || data.detalles.length < 5) {
     errors.detalles =
       "Los detalles son obligatorios y deben haber mín 5 carácteres.";
@@ -104,10 +103,17 @@ const validateDuck = (data) => {
 };
 
 function Form() {
+  const navigate = useNavigate();
   const [duckData, setDuckData] = useState(ducksObj);
   const [duckErrors, setDuckErrors] = useState({});
   const [siguiente, setSiguiente] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+
+  const fileInputRef = useRef(null);
+
+  //Hook
+  const { addPato, loading, error } = useCreatePato();
+
 
   //Ancho de la pantalla
   const windowWidth = useWindowWidth();
@@ -163,7 +169,7 @@ function Form() {
       [id]: value,
     }));
 
-    //Limpiar solo el error del campo editado (basicamente para que no salga en rojo 
+    //Limpiar solo el error del campo editado (basicamente para que no salga en rojo
     // si se ha modificado ese campo)
     if (duckErrors[id]) {
       setDuckErrors((prev) => ({
@@ -173,18 +179,61 @@ function Form() {
     }
   };
 
-  const handleDuckSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDuckData((prev) => ({ ...prev, imagen: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDuckSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
 
     const errors = validateDuck(duckData);
     setDuckErrors(errors);
 
+
+    //Si hay errores, no sigue 
+    if (Object.keys(errors).length !== 0){
+      return;
+    }
+
+    //Llamar al hook para crear el pato
+    const ok = await addPato(duckData);
+
+    //Si se ha creado bien, resetea el formulario
+    if (ok) {
+      alert(`¡El pato "${duckData.nombre}" se ha guardado correctamente!`);
+      setDuckData(ducksObj);
+
+      if (fileInputRef.current) {
+        //Resetea el input file
+        fileInputRef.current.value = null;
+        navigate("/patos")
+      }
+      setSubmitted(false);
+    }
+
+    
+
+    /**
     if (Object.keys(errors).length === 0) {
       console.log("Pato", duckData);
       setDuckData(ducksObj);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = null;
+      }
+
       setSubmitted(false);
     }
+
+     */
   };
 
   //Foco primer error siguiendo un orden
@@ -224,6 +273,10 @@ function Form() {
             categorias={categorias}
             handleDuckChange={handleDuckChange}
             handlePaso1={handlePaso1}
+            handleFileChange={handleFileChange}
+            fileInputRef={fileInputRef}
+            loading={loading}
+            error={error}
           />
         ) : (
           <FormPC
@@ -231,6 +284,10 @@ function Form() {
             duckErrors={duckErrors}
             categorias={categorias}
             handleDuckChange={handleDuckChange}
+            handleFileChange={handleFileChange}
+            fileInputRef={fileInputRef}
+            loading={loading}
+            error={error}
           />
         )}
       </form>

@@ -48,13 +48,14 @@ function FormPhone({
   categorias,
   handleDuckChange,
   handlePaso1,
+  handleFileChange,
+  fileInputRef,
+  loading,
+  error,
 }) {
   const validarPaso2 = () => {
     const errores = {};
 
-    if (!duckData.imagen.startsWith("http")) {
-      errores.imagen = "La URL de la imagen es obligatoria y debe ser válida.";
-    }
     if (!duckData.detalles.trim() || duckData.detalles.length < 5) {
       errores.detalles =
         "Los detalles son obligatorios y deben haber mín 5 carácteres..";
@@ -68,9 +69,9 @@ function FormPhone({
   };
 
   return (
-    <section className="space-y-6">
+    <fieldset className="space-y-6">
       {siguiente === 1 && (
-        <section className="space-y-4">
+        <fieldset className="space-y-4">
           <FormInput
             nombre="Pato nombre *"
             id="nombre"
@@ -95,7 +96,7 @@ function FormPhone({
             errorId="error-precio"
           />
 
-          <section>
+          <fieldset>
             <label htmlFor="categoria" className="contenedor__texto-largo">
               Categoría *
             </label>
@@ -120,27 +121,35 @@ function FormPhone({
             {duckErrors.categoria && (
               <p className="text-red-600 text-sm">{duckErrors.categoria}</p>
             )}
-          </section>
+          </fieldset>
 
           <button type="button" onClick={handlePaso1} className="btn">
             Siguiente
           </button>
-        </section>
+        </fieldset>
       )}
 
       {siguiente === 2 && (
-        <section className="space-y-4">
-          <FormInput
-            nombre="Imagen *"
-            id="imagen"
-            type="text"
-            placeholder="URL de la imagen (http...)"
-            value={duckData.imagen}
-            onChange={handleDuckChange}
-            autoComplete="url"
-            error={duckErrors.imagen}
-            errorId="error-imagen"
-          />
+        <fieldset className="space-y-4">
+          {/* Poner la imagen*/}
+          <fieldset className="flex flex-col gap-2">
+            <label htmlFor="imagen" className="contenedor__texto-largo">
+              Imagen
+            </label>
+            <input
+              ref={fileInputRef}
+              id="imagen"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="mt-1 block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 rounded-md" // ← sin border
+            />
+            {duckErrors.imagen && (
+              <p id="error-imagen" className="mt-1 text-sm text-red-600">
+                {duckErrors.imagen}
+              </p>
+            )}
+          </fieldset>
 
           <FormInput
             nombre="Detalles *"
@@ -154,7 +163,7 @@ function FormPhone({
             errorId="error-detalles"
           />
 
-          <section>
+          <fieldset>
             <label className="contenedor__texto-largo">Descripción *</label>
             <textarea
               id="descripcion"
@@ -172,9 +181,9 @@ function FormPhone({
             {duckErrors.descripcion && (
               <p className="text-red-600 text-sm">{duckErrors.descripcion}</p>
             )}
-          </section>
+          </fieldset>
 
-          <section className="flex gap-2">
+          <fieldset className="flex gap-2">
             <button
               type="button"
               onClick={() => setSiguiente(1)}
@@ -184,6 +193,7 @@ function FormPhone({
             </button>
             <button
               type="submit"
+              disabled={loading}
               onClick={() => {
                 const errores = validarPaso2();
                 if (Object.keys(errores).length > 0) {
@@ -192,12 +202,17 @@ function FormPhone({
               }}
               className="btn"
             >
-              Añadir pato
+              {loading ? "Añadiendo..." : "Añadir pato"}
             </button>
-          </section>
-        </section>
+          </fieldset>
+           {error && (
+              <p role="alert" className="text-red-600 text-sm">
+                {error}
+              </p>
+            )}
+        </fieldset>
       )}
-    </section>
+    </fieldset>
   );
 }
 

@@ -16,6 +16,9 @@
  * 
  */
 function CardDuck({ nombre, foto, descripcion, precio }) {
+  const tieneImagen = Boolean(foto);
+
+
   return (
     <article
       tabIndex={0}
@@ -23,13 +26,12 @@ function CardDuck({ nombre, foto, descripcion, precio }) {
       className="card"    
       >
       <figure className="card__img">
-        <img
-          src={foto}
-          alt={`Foto de ${nombre}`}
-          loading="lazy"
-          className="w-full h-full object-cover"
-        />
-        {nombre && <figcaption className="sr-only">{nombre}</figcaption>}
+        {tieneImagen ? (
+          <img src={foto} alt={nombre} className="w-full h-full object-cover" />
+        ) : (
+          <span className="text-gray-500 text-sm">Sin imagen</span>
+        )}
+        <figcaption className="sr-only">{nombre}</figcaption>
       </figure>
 
       <section className="mt-3">

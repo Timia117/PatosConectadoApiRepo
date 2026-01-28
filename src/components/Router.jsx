@@ -5,9 +5,19 @@ import DuckDetails from "./DuckDetails.jsx";
 import MainContent from "./MainContent.jsx";
 import Administration from "../pages/Administration.jsx";
 
+import Login from "../pages/Login.jsx";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+
+const PrivateRoute = ({ children }) => {
+  const { userLogged } = useContext(UserContext);
+  if (!userLogged) return <Navigate to="/login" replace />;
+  return children;
+};
+
 /**
  * Router component that defines the application's route structure.
- * 
+ *
  * Configures all application routes using React Router, including:
  * - Home page (root path)
  * - Ducks listing page
@@ -15,9 +25,9 @@ import Administration from "../pages/Administration.jsx";
  * - Administration page
  * - Redirect from /inicio to root path
  * - 404 fallback for non-existent routes
- * 
+ *
  * All routes are nested under the MainContent layout component.
- * 
+ *
  * @component
  * @returns {JSX.Element} Routes configuration with nested route structure
  */
@@ -30,7 +40,16 @@ function Router() {
         <Route path="patos" element={<Ducks />} />
         <Route path="patos/:id" element={<DuckDetails />} />
 
-        <Route path="administration" element={<Administration />} />
+        <Route
+          path="administration"
+          element={
+            <PrivateRoute>
+              <Administration />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/login" element={<Login />} />
 
         {/*Por si no existe la pág */}
         <Route

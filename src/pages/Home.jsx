@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import CardDuck from "../components/CardDuck";
-import ducklyn from "../data/ducklyn";
 import Slogan from "../assets/images/Slogan.png";
 
+import { usePatos } from "../hooks/usePatos";
 
 function Home() {
+  const { data: patos, loading, error } = usePatos();
+
   return (
     <>
       {/* Solo visible en pantallas grandes */}
@@ -21,7 +23,8 @@ function Home() {
           </p>
 
           <p className="text-white font-bold font-baloo text-xs sm:text-sm md:text-base leading-snug mb-6 tracking-wide">
-            En Ducklyn fabricamos nuestros patos con plástico reciclado de alta calidad,
+            En Ducklyn fabricamos nuestros patos con plástico reciclado de alta
+            calidad,
             <br />
             son seguros, resistentes y diseñados para durar,
             <br />
@@ -39,20 +42,33 @@ function Home() {
         </section>
       </section>
 
+      {loading && (
+        <section className="flex justify-center items-center h-64 mt-8">
+          <p className="contenedor__texto-normal">
+            Cargando patos desde la API...
+          </p>
+        </section>
+      )}
+
       {/* Grid de patos */}
-      <section
-        aria-label="Listado de patos destacados"
-        className="grid-patos"
-      >
-        {ducklyn.slice(0, 8).map((pato) => (
-          <Link
-            key={pato.id}
-            to={`/patos/${pato.id}`}
-            aria-label={`Ver detalles de ${pato.nombre}`}
-          >
-            <CardDuck nombre={pato.nombre} foto={pato.imagen} />
-          </Link>
-        ))}
+      <section aria-label="Listado de patos destacados" className="grid-patos">
+        {!loading &&
+          !error &&
+          patos.length > 0 &&
+          patos.slice(0, 8).map((pato) => (
+            <Link
+              key={pato.id}
+              to={`/patos/${pato.id}`}
+              aria-label={`Ver detalles de ${pato.nombre}`}
+            >
+              <CardDuck
+                nombre={pato.nombre}
+                foto={pato.imagen}
+                descripcion={pato.descripcion}
+                precio={pato.precio}
+              />
+            </Link>
+          ))}
       </section>
     </>
   );
