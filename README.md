@@ -11,7 +11,8 @@ https://patos-conectado-api-repo.vercel.app
 
 
 ## Repositorio del Proyecto
-https://github.com/InterfacesVanesaSekeresh/PatosConectadoApi
+https://github.com/Timia117/PatosConectadoApiRepo
+
 
 (API con patos de ejemplo): https://github.com/InterfacesVanesaSekeresh/ApiProductos
 

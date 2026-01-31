@@ -6,18 +6,18 @@
   "scripts": {
     "start": "electron .",
     "dev": "vite",
-    "build:web": "vite build",
-    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
-    "build": "electron-builder"
+    "build": "vite build",               
+    "build:electron": "electron-builder", 
+    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:5173 electron ."
   },
   "build": {
     "appId": "patos.conectados.app",
     "productName": "PatosConectados",
     "directories": {
-      "output": "dist"
+      "output": "dist-electron"
     },
     "files": [
-      "dist-web/**/*",
+      "dist/**/*",        
       "main.cjs",
       "package.json"
     ],
