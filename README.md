@@ -27,7 +27,10 @@ https://github.com/Timia117/PatosConectadoApiRepo
 ### Problemas encontrados durante el despliegue
 
 La web no se actualizaba al hacer push.
-El proyecto estaba conectado a dos repositorios distintos. Yo actualizaba el repositorio de la organización, pero Vercel estaba vinculado a otro, así que la web no cambiaba. Para solucionarlo, vi que repositorio usaba Vercler y actualice ese.
+El proyecto estaba conectado a dos repositorios distintos. Yo actualizaba el repositorio de la organización, pero Vercel estaba vinculado a otro, así que la web no cambiaba. Para solucionarlo, vi que repositorio usaba Vercler y actualice ese. 
+
+Al generar la aplicación de escritorio con Electron, se creó una carpeta dist-electron/ que contenía el ejecutable (.exe) y otros archivos. Al pesar más de lo que GitHub permite, me toco añadir dist-electron/ y *.exe en el .gitignore para que me hiciera el push.
+
 
 ## Qué diferencias existen entre web y escritorio:
 
