@@ -7,8 +7,6 @@ https://apiproductos-vix4.onrender.com/productos
 ## Vercel
 https://patos-conectado-api-repo.vercel.app
 
-## EXE 
-
 
 ## Repositorio del Proyecto
 https://github.com/Timia117/PatosConectadoApiRepo
