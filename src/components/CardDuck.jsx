@@ -41,7 +41,7 @@ function CardDuck({ nombre, foto, descripcion, precio }) {
         {descripcion && (
           <p className="contenedor__texto-normal font-bold">{descripcion}</p>
         )}
-        {precio && <p className="contenedor__precio">{precio}</p>}
+        {precio && <p className="contenedor__precio">{precio} €</p>}
       </section>
     </article>
   );

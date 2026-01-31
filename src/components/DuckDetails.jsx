@@ -93,7 +93,7 @@ function DuckDetails() {
       <section>
         <p className="contenedor__texto-largo !font-bold">{pato.categoria}</p>
         <p className="contenedor__texto-largo">{pato.descripcion}</p>
-        <p className="contenedor__precio !text-base">{pato.precio}</p>
+        <p className="contenedor__precio !text-base">{pato.precio} €</p>
       </section>
 
       <section className="flex gap-9">
