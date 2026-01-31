@@ -1,3 +1,63 @@
+# URLs del Proyecto
+
+## Render
+https://apiproductos-vix4.onrender.com/productos 
+
+
+## Vercel
+https://patos-conectado-api-repo.vercel.app
+
+## EXE 
+
+
+## Repositorio del Proyecto
+https://github.com/InterfacesVanesaSekeresh/PatosConectadoApi
+
+(API con patos de ejemplo): https://github.com/InterfacesVanesaSekeresh/ApiProductos
+
+
+## Reflexión
+
+### ¿Dónde está desplegada cada parte?
+
+- La api está desplegada en Render.
+- La web está en Vercel  
+- La aplicación de escritorio está en Electron. 
+
+
+### Problemas encontrados durante el despliegue
+
+La web no se actualizaba al hacer push.
+El proyecto estaba conectado a dos repositorios distintos. Yo actualizaba el repositorio de la organización, pero Vercel estaba vinculado a otro, así que la web no cambiaba. Para solucionarlo, vi que repositorio usaba Vercler y actualice ese.
+
+## Qué diferencias existen entre web y escritorio:
+
+### ¿Qué ventajas tiene el despliegue web frente al de escritorio?
+
+- Funciona en cualquier dispositivo con navegador. 
+- No hay que instalar nada.  
+- Se actualiza automáticamente. 
+- Es más ligero. 
+
+
+### ¿Por qué Electron no sustituye a una web?
+
+- Hay que instalarlo. 
+- Pesa más.  
+- No es accesible desde cualquier dispositivo. 
+- No se actualiza automáticamente.
+
+
+## Capturas de la aplicación de escritorio.
+
+![Inicio](image-22.png)
+
+![Detalle](image-23.png)
+
+![Catálogo](image-24.png)
+
+![Formulario](image-25.png)
+
 
 
 -------------------------------------------------------------------------
